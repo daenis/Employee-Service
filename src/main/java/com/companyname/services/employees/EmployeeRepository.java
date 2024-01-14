@@ -14,7 +14,7 @@ import java.util.Optional;
 interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Modifying
-    @Query("INSERT INTO Employee(firstName, lastName, jobTitleId, salary) VALUES (:firstName, :lastName, (SELECT id FROM JobTitle jt WHERE jt.name = :jobTitle), :salary) RETURNING *")
+    @Query(nativeQuery = true, value = "INSERT INTO employees (firstName, lastName, jobTitleId, salary) VALUES (:firstName, :lastName, (SELECT id FROM JobTitle jt WHERE jt.name = :jobTitle), :salary) RETURNING *")
     Employee createEmployee(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("jobTitle") String jobTitle, @Param("salary") double salary);
 
 //    @Modifying
