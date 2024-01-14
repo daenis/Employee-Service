@@ -15,7 +15,8 @@ final class EmployeeService implements CreateEmployee, FindAllEmployees, FindEmp
 
     @Override
     public EmployeeDetails executeFor(CreateEmployeeRequest theRequest) {
-        return null;
+        return employeeRepository.createEmployee(theRequest.getFirstName(), theRequest.getLastName(), theRequest.getJobTitle(), theRequest.getSalary())
+                .getDetails();
     }
 
     @Override
