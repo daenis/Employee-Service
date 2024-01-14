@@ -65,6 +65,8 @@ For security purposes, the RSA key is not included with version control. Instead
 
 
 
+---
+
 ### Create Authorization Server
 
 #### Create the database
@@ -186,3 +188,12 @@ For security purposes, the RSA key is not included with version control. Instead
 ```
 
 - Supplied as VM options in IntelliJ
+
+
+
+---
+
+### API Documentation
+
+- Find all employees
+- Find employee by ID
