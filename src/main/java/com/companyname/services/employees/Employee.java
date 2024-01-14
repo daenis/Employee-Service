@@ -16,7 +16,8 @@ final class Employee {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_seq")
+    @SequenceGenerator(name = "employees_seq", sequenceName = "employees_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "first_name")

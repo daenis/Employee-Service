@@ -12,10 +12,16 @@ import java.util.List;
 final class EmployeeService implements CreateEmployee, FindAllEmployees, FindEmployeeById {
 
     private final EmployeeRepository employeeRepository;
+    private final JobTitleRepository jobTitleRepository;
 
     @Override
     public EmployeeDetails executeFor(CreateEmployeeRequest theRequest) {
-        return employeeRepository.createEmployee(theRequest.getFirstName(), theRequest.getLastName(), theRequest.getJobTitle(), theRequest.getSalary()).getDetails();
+        Employee employee = new Employee();
+        employee.setFirstName(theRequest.getFirstName());
+        employee.setLastName(theRequest.getLastName());
+        employee.setJobTitle(jobTitleRepository.findByName(theRequest.getJobTitle()));
+        employee.setSalary(theRequest.getSalary());
+        return employeeRepository.save(employee).getDetails();
     }
 
     @Override

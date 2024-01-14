@@ -13,14 +13,6 @@ import java.util.Optional;
 @Repository
 interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Modifying
-    @Query(nativeQuery = true, value = "INSERT INTO employees (firstName, lastName, jobTitleId, salary) VALUES (:firstName, :lastName, (SELECT id FROM JobTitle jt WHERE jt.name = :jobTitle), :salary) RETURNING *")
-    Employee createEmployee(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("jobTitle") String jobTitle, @Param("salary") double salary);
-
-//    @Modifying
-//    @Query("INSERT INTO Employee(firstName, lastName, jobTitleId, salary) VALUES (:firstName, :lastName, (SELECT id FROM JobTitle jt WHERE jt.name = :jobTitle), :salary)")
-//    void createEmployee(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("jobTitle") String jobTitle, @Param("salary") String salary);
-
     @Query("SELECT NEW com.companyname.services.employees.api.EmployeeDetails(e.id, e.firstName, e.lastName, jt.name, e.salary) FROM Employee e JOIN e.jobTitle jt")
     List<EmployeeDetails> findAllEmployeeDetails();
 

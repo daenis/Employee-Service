@@ -15,7 +15,8 @@ final class JobTitle {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_titles_seq")
+    @SequenceGenerator(name = "job_titles_seq", sequenceName = "job_titles_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")
