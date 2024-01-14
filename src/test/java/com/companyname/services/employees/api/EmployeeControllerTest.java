@@ -20,6 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class EmployeeControllerTest {
 
     @Mock
+    private CreateEmployee createEmployee;
+
+    @Mock
     private FindAllEmployees findAllEmployees;
 
     @Mock
@@ -30,9 +33,11 @@ class EmployeeControllerTest {
     @BeforeEach
     void init() {
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new EmployeeController(findAllEmployees, findEmployeeById))
+                .standaloneSetup(new EmployeeController(createEmployee, findAllEmployees, findEmployeeById))
                 .build();
     }
+
+    // TODO: Controller Test - Create method
 
     @Test
     void findsAllEmployees() throws Exception {

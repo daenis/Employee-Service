@@ -1,8 +1,6 @@
 package com.companyname.services.employees;
 
-import com.companyname.services.employees.api.EmployeeDetails;
-import com.companyname.services.employees.api.FindAllEmployees;
-import com.companyname.services.employees.api.FindEmployeeById;
+import com.companyname.services.employees.api.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +9,14 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-final class EmployeeService implements FindAllEmployees, FindEmployeeById {
+final class EmployeeService implements CreateEmployee, FindAllEmployees, FindEmployeeById {
 
     private final EmployeeRepository employeeRepository;
+
+    @Override
+    public EmployeeDetails executeFor(CreateEmployeeRequest theRequest) {
+        return null;
+    }
 
     @Override
     public List<EmployeeDetails> execute() {
