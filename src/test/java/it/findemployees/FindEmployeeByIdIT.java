@@ -1,7 +1,7 @@
 package it.findemployees;
 
-import com.companyname.services.employees.api.EmployeeDetails;
-import com.companyname.services.employees.api.FindEmployeeById;
+import com.companyname.services.employees.api.model.EmployeeDetails;
+import com.companyname.services.employees.api.behavior.FindEmployeeById;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

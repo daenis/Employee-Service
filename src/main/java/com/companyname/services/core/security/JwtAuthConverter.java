@@ -1,4 +1,4 @@
-package com.companyname.services.security;
+package com.companyname.services.core.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

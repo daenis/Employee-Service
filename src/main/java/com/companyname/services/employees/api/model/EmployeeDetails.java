@@ -1,4 +1,4 @@
-package com.companyname.services.employees.api;
+package com.companyname.services.employees.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

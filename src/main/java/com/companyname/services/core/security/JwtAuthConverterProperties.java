@@ -1,4 +1,4 @@
-package com.companyname.services.security;
+package com.companyname.services.core.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

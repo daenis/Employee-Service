@@ -1,10 +1,14 @@
 package com.companyname.services.employees;
 
-import com.companyname.services.employees.api.*;
+import com.companyname.services.employees.api.behavior.CreateEmployee;
+import com.companyname.services.employees.api.behavior.FindAllEmployees;
+import com.companyname.services.employees.api.behavior.FindEmployeeById;
+import com.companyname.services.employees.api.error.InvalidEmployeeException;
+import com.companyname.services.employees.api.model.CreateEmployeeRequest;
+import com.companyname.services.employees.api.model.EmployeeDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,7 +23,7 @@ final class EmployeeService implements CreateEmployee, FindAllEmployees, FindEmp
         Employee employee = new Employee();
         employee.setFirstName(theRequest.getFirstName());
         employee.setLastName(theRequest.getLastName());
-        employee.setJobTitle(jobTitleRepository.findByName(theRequest.getJobTitle()));
+        employee.setJobTitle(jobTitleRepository.findByName(theRequest.getJobTitle()).orElseThrow(() -> new InvalidEmployeeException("Please select a valid job title")));
         employee.setSalary(theRequest.getSalary());
         return employeeRepository.save(employee).getDetails();
     }
@@ -31,6 +35,6 @@ final class EmployeeService implements CreateEmployee, FindAllEmployees, FindEmp
 
     @Override
     public EmployeeDetails executeFor(long id) {
-        return employeeRepository.findEmployeeDetailsById(id).orElseThrow(() -> new RuntimeException("Error retrieving employee details"));
+        return employeeRepository.findEmployeeDetailsById(id).orElseThrow(() -> new InvalidEmployeeException("Employee does not exist for ID"));
     }
 }

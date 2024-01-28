@@ -50,17 +50,25 @@ For security purposes, the RSA key is not included with version control. Instead
       name VARCHAR(255)
   );
   
+  CREATE TABLE companies (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255)
+  );
+  
   CREATE TABLE employees (
       id SERIAL PRIMARY KEY,
       first_name VARCHAR(255),
       last_name VARCHAR(255),
       salary DECIMAL(10, 2),
       job_title_id INT,
+      company_id INT,
       FOREIGN KEY (job_title_id) REFERENCES job_titles(id)
+      FOREIGN KEY (company_id) REFERENCES companies(id)
   );
   
   INSERT INTO job_titles (name) VALUES ('Software Engineer');
-  INSERT INTO employees (first_name, last_name, salary, job_title_id) VALUES ('Jon', 'Doe', 150000.00, 1);
+  INSERT INTO companies (name) VALUES ('Example Company LLC')
+  INSERT INTO employees (first_name, last_name, salary, job_title_id, company_id) VALUES ('Jon', 'Doe', 150000.00, 1, 1);
   ```
 
 
@@ -139,19 +147,18 @@ For security purposes, the RSA key is not included with version control. Instead
 #### Configure the Authorization Server
 
 - Log into the Authorization Server at https://localhost:9880 and set up the initial admin user
-- Create a Realm named *app-name*
+- Create a Realm named *Employee-Management-Service*
   - Name of the entire application/system
-- Create a client named *app-client*
+- Create a client named *employee-service*
   - Name of the user facing application/system
 - Add a client role named *app-user*
-- Add a Realm role named *app-client-user*
+- Add a Realm role named *employee-service-app-user*
   - Tie to *app-user* role
 - Create a user
   - Username: *jondoe*
   - Password: *changeit*
   - Email Address: *jon.doe@example.com*
-  - Map to *app-client-user* role
-
+  - Map to *employee-service-app-user* role
 - Update access token lifespan
   - Navigate to *Realm Settings* and select the *Tokens* tab
   - Update *Access Token Lifespan* to the desired value
@@ -160,9 +167,8 @@ For security purposes, the RSA key is not included with version control. Instead
   - Navigate to *Realm Settings* and select the *Sessions* tab
   - Update *SSO Session Idle* and *SSO Session Max* to the desired value
     - Current value is twenty four hours
-
 - Logging In
-  - **URL:** https://localhost:9880/realms/Realm-Name/protocol/openid-connect/token
+  - **URL:** https://localhost:9880/realms/Employee-Management-Service/protocol/openid-connect/token
   - **Method:** POST
   - **Body:** (x-www-form-urlencoded)
     - client_id: app-name
@@ -171,6 +177,9 @@ For security purposes, the RSA key is not included with version control. Instead
     - grant_type: password
 - Authorizing Requests
   - When sending requests to the protected service, attach the *access_token* to the *Authorization* header, prefixed with the word *Bearer* and a space
+- Enabling User Registration
+  - Navigate to *Realm Settings* for the *Employee-Management-Service* realm, select the *Login* tab and enable *User registration*
+  - Navigate to the *User Registration* tab and add *employee-service-app-user* to the list of default roles
 
 
 

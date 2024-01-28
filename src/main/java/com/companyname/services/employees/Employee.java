@@ -1,6 +1,6 @@
 package com.companyname.services.employees;
 
-import com.companyname.services.employees.api.EmployeeDetails;
+import com.companyname.services.employees.api.model.EmployeeDetails;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ final class Employee {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_seq")
-    @SequenceGenerator(name = "employees_seq", sequenceName = "employees_seq", allocationSize = 1)
+    @SequenceGenerator(name = "employees_seq", sequenceName = "employees_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "first_name")

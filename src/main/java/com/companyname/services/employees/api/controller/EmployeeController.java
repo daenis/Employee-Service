@@ -1,5 +1,10 @@
-package com.companyname.services.employees.api;
+package com.companyname.services.employees.api.controller;
 
+import com.companyname.services.employees.api.behavior.CreateEmployee;
+import com.companyname.services.employees.api.behavior.FindAllEmployees;
+import com.companyname.services.employees.api.behavior.FindEmployeeById;
+import com.companyname.services.employees.api.model.CreateEmployeeRequest;
+import com.companyname.services.employees.api.model.EmployeeDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.companyname.services.security;
+package com.companyname.services.core.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,10 +20,12 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(authorizeRequests -> {
             authorizeRequests
                     .requestMatchers(HttpMethod.GET, "/health").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/v1/**").hasAnyRole(APP_USER)
+                    .requestMatchers(HttpMethod.POST, "/v1/users/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/v1/employees/**").hasAnyRole(APP_USER)
                     .anyRequest().authenticated();
         });
         http.oauth2ResourceServer(resourceServer -> {
